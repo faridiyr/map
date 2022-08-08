@@ -8,6 +8,7 @@ class Map extends CI_Controller
         parent::__construct();
         $this->load->model('Map_Model');
         $this->load->library('form_validation');
+        $this->load->library('pdf');
     }
 
     public function index()
@@ -77,5 +78,59 @@ class Map extends CI_Controller
         $id = $_POST['id'];
 
         $this->Map_Model->delete_location($id);
+    }
+
+    public function pdf()
+    {
+        // Instanciation of inherited class
+        $pdf = new FPDF();
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->SetFont('Times', '', 12);
+
+        // header
+        // Logo
+        $pdf->Image(base_url('asset/image/kb_insurance_logo.png'), 10, 6, 60);
+        // Arial bold 15
+        $pdf->SetFont('Arial', 'B', 15);
+        // Line break
+        $pdf->Ln(20);
+        // Move to the right
+        $pdf->Cell(80);
+        // Title
+        $pdf->Cell(30, 10, 'Data Lokasi', 0, 0, 'C');
+        // Line break
+        $pdf->Ln(20);
+
+        // column header
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(10, 6, 'No', 1, 0, 'C');
+        $pdf->Cell(65, 6, 'Nama Lokasi', 1, 0, 'C');
+        $pdf->Cell(45, 6, 'Latitude', 1, 0, 'C');
+        $pdf->Cell(45, 6, 'Longitude', 1, 0, 'C');
+        $pdf->Cell(25, 6, 'Status', 1, 1, 'C');
+
+        // column body 
+        $pdf->SetFont('Arial', '', 10);
+        $location = $this->Map_Model->get_all_location();
+        $no = 0;
+        foreach ($location as $item) {
+            $no++;
+            $pdf->Cell(10, 6, $no, 1, 0, 'C');
+            $pdf->Cell(65, 6, $item['location'], 1, 0);
+            $pdf->Cell(45, 6, $item['latitude'], 1, 0, 'L');
+            $pdf->Cell(45, 6, $item['longitude'], 1, 0, 'L');
+            $pdf->Cell(25, 6, $item['is_active'], 1, 1, 'C');
+        }
+
+        // footer
+        // Position at 1.5 cm from bottom
+        $pdf->SetY(0);
+        // Arial italic 8
+        $pdf->SetFont('Arial', 'I', 8);
+        // Page number
+        $pdf->Cell(0, 10, 'Page ' . $pdf->PageNo() . '/{nb}', 0, 0, 'R');
+
+        $pdf->Output();
     }
 }

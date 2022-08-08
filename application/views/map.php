@@ -33,6 +33,15 @@
                                         </button>
                                     </div>
                                 </div>
+                                <div class="col-sm-2">
+                                    <div class="col-sm-8">
+                                        <a href="<?= site_url("Map/pdf") ?>">
+                                            <button type="button" class="btn btn-block btn-primary">
+                                                <i class="fa fa-file-pdf"></i>&ensp;PDF
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- /.card-header -->
