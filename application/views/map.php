@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Simple Tables</h1>
+                    <h1>Simple Location Mapping</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,12 +25,20 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with default features</h3>
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="col-sm-8">
+                                        <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-add">
+                                            <i class="fa fa-plus"></i>&ensp;Tambah Data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-8">
                                     <?php if ($this->session->flashdata('notification_berhasil') != '') { ?>
                                         <div class="alert alert-success alert-dismissable">
                                             <i class="glyphicon glyphicon-ok"></i>
@@ -44,12 +52,10 @@
                                             <?php echo $this->session->flashdata('notification_gagal'); ?>
                                         </div>
                                     <?php } ?>
-                                    <div class="col-sm-2">
-                                        <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-add">Tambah Data</button>
-                                    </div>
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th style="text-align: center;">No</th>
                                                 <th style="text-align: center;">Place</th>
                                                 <th style="text-align: center;">Latitude</th>
                                                 <th style="text-align: center;">Longitude</th>
@@ -58,8 +64,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($location as $item) { ?>
+                                            <?php
+                                            $no = 0;
+                                            foreach ($location as $item) {
+                                                $no++;
+                                            ?>
                                                 <tr>
+                                                    <td style="text-align: center;"><?= $no ?></td>
                                                     <td><?= $item['location'] ?></td>
                                                     <td><?= $item['latitude'] ?></td>
                                                     <td><?= $item['longitude'] ?></td>
@@ -98,7 +109,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div id="googleMap" style="width:100%;height:750px"></div>
                                 </div>
                             </div>
