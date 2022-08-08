@@ -26,21 +26,31 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-sm-2">
-                                    <div class="col-sm-8">
-                                        <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-add">
-                                            <i class="fa fa-plus"></i>&ensp;Tambah Data
-                                        </button>
-                                    </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal-add">
+                                        <i class="fa fa-plus"></i>&ensp;Tambah Data
+                                    </button>
                                 </div>
-                                <div class="col-sm-2">
-                                    <div class="col-sm-8">
-                                        <a href="<?= site_url("Map/pdf") ?>">
-                                            <button type="button" class="btn btn-block btn-primary">
-                                                <i class="fa fa-file-pdf"></i>&ensp;PDF
-                                            </button>
-                                        </a>
-                                    </div>
+                                <div class="col-sm-3">
+                                    <a href="<?= site_url("Map/pdf") ?>">
+                                        <button type="button" class="btn btn-block btn-info">
+                                            <i class="fa fa-file-pdf"></i>&ensp;PDF Report
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a href="<?= site_url("Map/pdf_active") ?>">
+                                        <button type="button" class="btn btn-block btn-success">
+                                            <i class="fa fa-file-pdf"></i>&ensp;Location Active
+                                        </button>
+                                    </a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a href="<?= site_url("Map/pdf_not_active") ?>">
+                                        <button type="button" class="btn btn-block btn-danger">
+                                            <i class="fa fa-file-pdf"></i>&ensp;Location Not Active
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -123,133 +133,134 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
             </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-
-
-        <!-- modal -->
-
-        <!-- modal add -->
-        <div class="modal fade" id="modal-add">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add a Location</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form role="form" enctype="multipart/form-data" action="<?= site_url('Map/add') ?>" method="post">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="location">Location</label>
-                                <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="latitude">Latitude</label>
-                                <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter Latitude Coordinate" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="longitude">Longitude</label>
-                                <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude Coordinate" required>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="Active" checked>
-                                <label class="form-check-label" for="is_active">Lokasi Active</label>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
+            <!-- /.card -->
         </div>
-        <!-- /.modal -->
+        <!-- /.row -->
+</div><!-- /.container-fluid -->
 
-        <!-- modal edit -->
-        <?php
-        foreach ($location as $item) {
-        ?>
-            <div class="modal fade" id="modal-edit<?= $item['id'] ?>">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit a Location</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form enctype="multipart/form-data" action="<?= site_url('Map/edit') ?>" method="post">
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input hidden type="text" class="form-control" id="id" name="id" placeholder="Enter Id" value="<?= $item['id'] ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="location">Location</label>
-                                    <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" value="<?= $item['location'] ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="latitude">Latitude</label>
-                                    <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter Latitude Coordinate" value="<?= $item['latitude'] ?>" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="longitude">Longitude</label>
-                                    <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude Coordinate" value="<?= $item['longitude'] ?>" required>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="Active" <?php
-                                                                                                                                    if ($item['is_active'] === 'Active') {
-                                                                                                                                        echo 'checked';
-                                                                                                                                    }
-                                                                                                                                    ?>>
-                                    <label class="form-check-label" for="is_active">Lokasi Active</label>
-                                </div>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
+
+<!-- modal -->
+
+<!-- modal add -->
+<div class="modal fade" id="modal-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add a Location</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <!-- /.modal -->
-        <?php
-        }
-        ?>
+            <form role="form" enctype="multipart/form-data" action="<?= site_url('Map/add') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
+                        <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter Latitude Coordinate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
+                        <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude Coordinate" required>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="Active" checked>
+                        <label class="form-check-label" for="is_active">Lokasi Active</label>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-        <script type="text/javascript">
-            function delete_repositori_ajax(id) {
-                if (confirm("Anda yakin ingin menghapus data ini ?")) {
-                    ;
-                    $.ajax({
-                        url: 'Map/delete',
-                        type: 'POST',
-                        data: {
-                            id: id
-                        },
-                        success: function() {
-                            alert('Delete data berhasil');
-                            location.reload();
-                        },
-                        error: function() {
-                            alert('Delete data gagal');
-                        }
-                    });
+<!-- modal edit -->
+<?php
+foreach ($location as $item) {
+?>
+    <div class="modal fade" id="modal-edit<?= $item['id'] ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit a Location</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form enctype="multipart/form-data" action="<?= site_url('Map/edit') ?>" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input hidden type="text" class="form-control" id="id" name="id" placeholder="Enter Id" value="<?= $item['id'] ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Enter Location" value="<?= $item['location'] ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude">Latitude</label>
+                            <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Enter Latitude Coordinate" value="<?= $item['latitude'] ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude">Longitude</label>
+                            <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude Coordinate" value="<?= $item['longitude'] ?>" required>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="Active" <?php
+                                                                                                                            if ($item['is_active'] === 'Active') {
+                                                                                                                                echo 'checked';
+                                                                                                                            }
+                                                                                                                            ?>>
+                            <label class="form-check-label" for="is_active">Lokasi Active</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+<?php
+}
+?>
+
+<script type="text/javascript">
+    function delete_repositori_ajax(id) {
+        if (confirm("Anda yakin ingin menghapus data ini ?")) {
+            ;
+            $.ajax({
+                url: 'Map/delete',
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function() {
+                    alert('Delete data berhasil');
+                    location.reload();
+                },
+                error: function() {
+                    alert('Delete data gagal');
                 }
-            }
-        </script>
+            });
+        }
+    }
+</script>
 
-    </section>
-    <!-- /.content -->
+</section>
+<!-- /.content -->
 </div>
