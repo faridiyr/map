@@ -50,24 +50,31 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th style="text-align: center;">No</th>
                                                 <th style="text-align: center;">Place</th>
                                                 <th style="text-align: center;">Latitude</th>
                                                 <th style="text-align: center;">Longitude</th>
+                                                <th style="text-align: center;">Status</th>
                                                 <th style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            $no = 0;
-                                            foreach ($location as $item) {
-                                                $no++;
-                                            ?>
+                                            <?php foreach ($location as $item) { ?>
                                                 <tr>
-                                                    <td style="text-align: center;"><?= $no ?></td>
                                                     <td><?= $item['location'] ?></td>
                                                     <td><?= $item['latitude'] ?></td>
                                                     <td><?= $item['longitude'] ?></td>
+                                                    <td style="text-align: center;">
+                                                        <span class="right badge 
+                                                        <?php
+                                                        if ($item['is_active'] === 'Active') {
+                                                            echo 'badge-success';
+                                                        } else if ($item['is_active'] === 'Not Active') {
+                                                            echo 'badge-danger';
+                                                        }
+                                                        ?>">
+                                                            <?= $item['is_active'] ?>
+                                                        </span>
+                                                    </td>
                                                     <td style="text-align: center;">
 
                                                         <!-- Tombol Edit -->
@@ -132,6 +139,10 @@
                                 <label for="longitude">Longitude</label>
                                 <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude Coordinate" required>
                             </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="Active" checked>
+                                <label class="form-check-label" for="is_active">Lokasi Active</label>
+                            </div>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="submit" class="btn btn-primary">Add</button>
@@ -173,6 +184,14 @@
                                 <div class="form-group">
                                     <label for="longitude">Longitude</label>
                                     <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude Coordinate" value="<?= $item['longitude'] ?>" required>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="Active" <?php
+                                                                                                                                    if ($item['is_active'] === 'Active') {
+                                                                                                                                        echo 'checked';
+                                                                                                                                    }
+                                                                                                                                    ?>>
+                                    <label class="form-check-label" for="is_active">Lokasi Active</label>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">

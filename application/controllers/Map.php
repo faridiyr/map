@@ -27,11 +27,17 @@ class Map extends CI_Controller
         $this->form_validation->set_rules('latitude', 'Latitude', 'required|trim');
         $this->form_validation->set_rules('longitude', 'Longitude', 'required|trim');
 
+        $check = $this->input->post('is_active');
+        if ($check !== 'Active') {
+            $check = 'Not Active';
+        }
+
         if ($this->form_validation->run() == true) {
             $location = array(
                 'location' => $this->input->post('location'),
                 'latitude' => $this->input->post('latitude'),
-                'longitude' => $this->input->post('longitude')
+                'longitude' => $this->input->post('longitude'),
+                'is_active' => $check
             );
             $this->db->insert('location', $location);
             $this->session->set_flashdata('notification_berhasil', 'Location berhasil ditambahkan!');
@@ -50,10 +56,16 @@ class Map extends CI_Controller
         $this->form_validation->set_rules('latitude', 'Latitude', 'required|trim');
         $this->form_validation->set_rules('longitude', 'Longitude', 'required|trim');
 
+        $check = $this->input->post('is_active');
+        if ($check !== 'Active') {
+            $check = 'Not Active';
+        }
+
         $data_update = array(
             'location' => $this->input->post('location'),
             'latitude' => $this->input->post('latitude'),
-            'longitude' => $this->input->post('longitude')
+            'longitude' => $this->input->post('longitude'),
+            'is_active' => $check
         );
         $this->db->update('location', $data_update, array('id' => $id));
         $this->session->set_flashdata('notification_berhasil', 'Location berhasil diubah');

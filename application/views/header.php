@@ -34,13 +34,15 @@
             <?php
             $no = 0;
             foreach ($location as $item) {
-                $no++;
+                if ($item['is_active'] === 'Active') {
+                    $no++;
             ?>
-                var marker<?= $no ?> = new google.maps.Marker({
-                    position: new google.maps.LatLng(<?= $item['latitude'] ?>, <?= $item['longitude'] ?>),
-                    map: peta
-                });
+                    var marker<?= $no ?> = new google.maps.Marker({
+                        position: new google.maps.LatLng(<?= $item['latitude'] ?>, <?= $item['longitude'] ?>),
+                        map: peta
+                    });
             <?php
+                }
             }
             ?>
         }
